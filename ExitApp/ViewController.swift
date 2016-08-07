@@ -11,6 +11,9 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
+    //        let delay = audioPlayer.duration // 7 seconds
+    let delay = 3.0
+    var alpha: CGFloat = 1.0
     var audioPlayer = AVAudioPlayer()
 
     override func viewDidLoad() {
@@ -25,7 +28,7 @@ class ViewController: UIViewController {
         myButton.titleLabel?.font = UIFont(name: "Chalkduster", size: 50)
         myButton.titleLabel?.textAlignment = NSTextAlignment.Center
         
-        myButton.setTitleColor(UIColor(red: 0, green: 0, blue: 156, alpha: 1), forState: UIControlState.Normal)
+        myButton.setTitleColor(UIColor(red: 255, green: 0, blue: 0, alpha: 1), forState: UIControlState.Normal)
 //        myButton.titleLabel?.textColor = UIColor(red: 0, green: 0, blue: 156, alpha: 1)
         
         // shadow doesn't appear
@@ -37,7 +40,7 @@ class ViewController: UIViewController {
         myButton.layer.shadowOffset = CGSizeMake(-10, 10)
 //        myButton.titleLabel?.shadowOffset = CGSizeMake(-3, 0)
         
-        myButton.layer.backgroundColor = UIColor.greenColor().CGColor
+        myButton.layer.backgroundColor = UIColor.orangeColor().CGColor
 //        myButton.backgroundColor = UIColor.greenColor()
         
         myButton.addTarget(self, action: #selector(ViewController.quitApp), forControlEvents: UIControlEvents.TouchUpInside)
@@ -82,10 +85,17 @@ class ViewController: UIViewController {
         audioPlayer.play()
 //        print("quit")
         
-        let delay = audioPlayer.duration // 7 seconds
-//        let delay = 5.0
+        let timeInterval = 0.01
+        
+        NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: #selector(ViewController.fadeOut), userInfo: nil, repeats: true)
         
         NSTimer.scheduledTimerWithTimeInterval(delay, target: self, selector: #selector(ViewController.selfDestruct), userInfo: nil, repeats: false)
+    }
+    
+    func fadeOut() { // or tv turn off beeeoooooooooop
+        UIView.animateWithDuration(delay, animations: {
+            self.view.alpha = 0.0
+        })
     }
     
     func selfDestruct() {
