@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         // proof that app works
         print("quit")
         
-        // quit app
+        // quit app using ancient C command
         exit(0)
     }
 }
